@@ -17,7 +17,7 @@ Route::get('/', '\App\Http\Controllers\FrontEndController@index');
 Route::get('/{locale}', '\App\Http\Controllers\FrontEndController@locale');
 
 Route::get('/{locale}/{slug}', '\App\Http\Controllers\FrontEndController@page');
-Route::get('/{locale}/mehsullar/{slug}', '\App\Http\Controllers\FrontEndController@product');
+Route::get('/{locale}/media/xeberler/{slug}', '\App\Http\Controllers\FrontEndController@blog');
 Route::get('/{locale}/{parent}/{slug}', '\App\Http\Controllers\FrontEndController@child');
 
 Route::post('/contact', '\App\Http\Controllers\FormController@sendEmail')->name('send.email');

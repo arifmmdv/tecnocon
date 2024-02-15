@@ -13,7 +13,7 @@
                         <div class="footer-column col-md-7 col-sm-6 col-xs-12">
                             <div class="footer-widget logo-widget">
                                 <div class="logo">
-                                    <a href="index.html"><img src="images/footer-logo.png" alt="" /></a>
+                                    <a href="/{{app()->getLocale()}}"><img src="images/footer-logo.png" alt="" /></a>
                                 </div>
                                 <div class="text">Collaboratively administrate em powered markets via plug and play networks. Dynamically procrastinate B2C users after installed.</div>
                             </div>

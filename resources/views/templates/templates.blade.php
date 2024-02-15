@@ -22,4 +22,7 @@
         </div>
     </div>
     <!--End Page Info-->
+
+    @include('blocks.blocks')
+
 @endsection

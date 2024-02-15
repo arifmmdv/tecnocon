@@ -1,67 +1,51 @@
-<div class="contact-us-area mt-no-text">
-    <div class="container custom-area">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-custom">
-                <div class="contact-info-item">
-                    <div class="con-info-icon">
-                        <i class="lnr lnr-map-marker"></i>
+<section class="contact-section">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-md-4">
+                <div class="contact">
+                    <span class="icon flaticon-map-marker"></span>
+                    <div class="contact-title">
+                        <h3>{{$block->address_title}}</h3>
                     </div>
-                    <div class="con-info-txt">
-                        <h4>{{$block->address_title}}</h4>
-                        <p>{{$block->address}}</p>
-                    </div>
+                    <div class="text">{{$block->address}}</div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-custom">
-                <div class="contact-info-item">
-                    <div class="con-info-icon">
-                        <i class="lnr lnr-smartphone"></i>
+            <div class="col-md-4">
+                <div class="contact">
+                    <span class="icon flaticon-telephone-handle-silhouette"></span>
+                    <div class="contact-title">
+                        <h3>{{$block->phone_title}}</h3>
                     </div>
-                    <div class="con-info-txt">
-                        <h4>{{$block->phone_title}}</h4>
-                        <p>
-                            @foreach($block->phone as $phone)
-                                <span>
-                                @if (!empty($phone->title))
-                                        {{$phone->title}}:
-                                    @endif
-                                    @if (!empty($phone->value))
-                                        <a href="tel:{{$phone->value}}" target="_blank">{{$phone->value}}</a>
-                                    @endif
-                            </span>
-                                @if(!$loop->last)
-                                    <br>
-                                @endif
-                            @endforeach
-                        </p>
-                    </div>
+                    @foreach($block->phone as $phone)
+                        <div class="text">
+                            @if (!empty($phone->title))
+                                {{$phone->title}}:
+                            @endif
+                            @if (!empty($phone->value))
+                                <a href="tel:{{$phone->value}}" target="_blank">{{$phone->value}}</a>
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
             </div>
-            <div class="col-lg-4 col-md-12 col-custom text-align-center">
-                <div class="contact-info-item">
-                    <div class="con-info-icon">
-                        <i class="lnr lnr-envelope"></i>
+            <div class="col-md-4">
+                <div class="contact">
+                    <span class="icon flaticon-sent-mail"></span>
+                    <div class="contact-title">
+                        <h3>{{$block->email_title}}</h3>
                     </div>
-                    <div class="con-info-txt">
-                        <h4>{{$block->email_title}}</h4>
-                        <p>
-                            @foreach($block->email as $email)
-                                <span>
-                                @if (!empty($email->title))
-                                        {{$email->title}}:
-                                    @endif
-                                    @if (!empty($email->value))
-                                        <a href="mailto:{{$email->value}}" target="_blank">{{$email->value}}</a>
-                                    @endif
-                            </span>
-                                @if(!$loop->last)
-                                    <br>
-                                @endif
-                            @endforeach
-                        </p>
-                    </div>
+                    @foreach($block->email as $email)
+                        <div class="text">
+                            @if (!empty($email->title))
+                                {{$email->title}}:
+                            @endif
+                            @if (!empty($email->value))
+                                <a href="mailto:{{$email->value}}" target="_blank">{{$email->value}}</a>
+                            @endif
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>

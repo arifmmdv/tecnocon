@@ -63,7 +63,11 @@
             <div class="outer-container clearfix">
                 <!--Logo Box-->
                 <div class="logo-box">
-                    <div class="logo"><a href="index.html"><img src="images/logo.png" alt=""></a></div>
+                    <div class="logo">
+                        <a href="/{{app()->getLocale()}}">
+                            <img src="/assets/images/logo.svg" alt="">
+                        </a>
+                    </div>
                 </div>
 
                 <!--Nav Outer-->
@@ -97,27 +101,6 @@
                             </ul>
                         </div>
                     </nav>
-                    <!-- Main Menu End-->
-                    <div class="outer-box">
-                        <!--Search Box-->
-                        <div class="search-box-outer">
-                            <div class="dropdown">
-                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-search"></span></button>
-                                <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
-                                    <li class="panel-outer">
-                                        <div class="form-container">
-                                            <form method="post" action="blog.html">
-                                                <div class="form-group">
-                                                    <input type="search" name="field-name" value="" placeholder="Search Here" required>
-                                                    <button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!--Nav Outer End-->
 
@@ -131,7 +114,7 @@
             <div class="sticky-inner-container clearfix">
                 <!--Logo-->
                 <div class="logo pull-left">
-                    <a href="index.html" class="img-responsive"><img src="images/logo-small.png" alt="" title=""></a>
+                    <a href="/{{app()->getLocale()}}" class="img-responsive"><img src="/assets/images/logo.svg" alt="" title=""></a>
                 </div>
 
                 <!--Right Col-->
@@ -165,28 +148,6 @@
                         </div>
                     </nav>
                     <!-- Main Menu End-->
-
-                    <!--Outer Box-->
-                    <div class="outer-box">
-                        <!--Search Box-->
-                        <div class="search-box-outer">
-                            <div class="dropdown">
-                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-search"></span></button>
-                                <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu4">
-                                    <li class="panel-outer">
-                                        <div class="form-container">
-                                            <form method="post" action="blog.html">
-                                                <div class="form-group">
-                                                    <input type="search" name="field-name" value="" placeholder="Search Here" required>
-                                                    <button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>

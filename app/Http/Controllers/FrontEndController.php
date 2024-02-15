@@ -45,4 +45,11 @@ class FrontEndController extends Controller
         $product = Product::where('is_visible',1)->where('slug',$slug)->firstOrFail();
         return view("templates.product",compact('page','product'));
     }
+
+    public function blog($locale, $slug) {
+        App::setLocale($locale);
+        $page = Page::find(7);
+        $blog = Page::where(['is_visible' => 1,'slug' => $slug, 'parent_id' => 7])->firstOrFail();
+        return view("templates.blog_details",compact('page','blog'));
+    }
 }
