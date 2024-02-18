@@ -891,7 +891,7 @@ img{
 	top:52px;
 	right:0px;
 	padding:0px;
-	width:280px;
+	width:160px;
 	border-radius:0px;
 	border-top:3px solid #f2d046;
 }
@@ -2782,7 +2782,10 @@ img{
 	position:relative;
 	margin-bottom:30px;
 }
-
+.main-footer .logo-widget .logo img {
+    width: auto;
+    height: 40px;
+}
 .main-footer .logo-widget .text{
 	position:relative;
 	color:#a8a8a8;
@@ -2880,7 +2883,12 @@ img{
 }
 
 .company-section .content-column .sec-title h2{
-	padding-bottom:0px;
+    position: relative;
+    color: #242424;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2em;
+    display: inline-block;
 }
 
 .company-section .content-column .text{
@@ -2894,8 +2902,7 @@ img{
 .company-section .content-column .bold-text{
 	position:relative;
     color: #242424;
-    font-size: 20px;
-    font-style: italic;
+    font-size: 18px;
     margin-top: 8px;
     line-height: 1.6em;
     font-family: 'Lora', serif;
@@ -5346,7 +5353,7 @@ img{
 
 .contact-section .icon{
     display: block;
-    font-size: 64px;
+    font-size: 48px;
     color: #00157a;
     width: 64px;
     height: 64px;
@@ -7789,4 +7796,13 @@ img{
 .cart-section .totals-table .total .price{
 	color:#363636 !important;
 	font-weight:700;
+}
+
+.language-options {
+    display: flex;
+    text-transform: uppercase;
+    gap: 8px
+}
+.language-options li:first-child a {
+    color: #00157a
 }

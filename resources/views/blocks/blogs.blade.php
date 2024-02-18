@@ -9,12 +9,35 @@
                         </div>
                         <div class="lower-content">
                             <div class="upper-box clearfix">
-                                <div class="posted-date pull-left">25 Feb. 2019</div>
+                                <div class="posted-date pull-left">
+                                    @php
+                                        $carbonDate = \Carbon\Carbon::parse($blog->created_at);
+                                        $formattedDate = $carbonDate->format('d M. Y');
+                                        echo $formattedDate
+                                    @endphp
+                                </div>
                             </div>
                             <div class="lower-box">
                                 <h3><a href="/{{app()->getLocale()}}/media/xeberler/{{$blog->slug}}">{{$blog->title}}</a></h3>
-                                <div class="text">Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.</div>
-                                <a href="/{{app()->getLocale()}}/media/xeberler/{{$blog->slug}}" class="theme-btn btn-style-four">Read more</a>
+                                <div class="text">
+                                    @php
+                                        $blocks = json_decode(json_encode($blog->content));
+                                        foreach ($blocks as $bloc) {
+                                            if ($bloc->type === 'content') {
+                                                $content = $bloc->data;
+                                            }
+                                        }
+                                    @endphp
+                                    @isset($content)
+                                        @php
+                                            $textWithoutTags = strip_tags($content->content);
+                                            $words = str_word_count($textWithoutTags, 1);
+                                            $first40Words = implode(' ', array_slice($words, 0, 30));
+                                            echo $first40Words;
+                                        @endphp
+                                    @endisset
+                                </div>
+                                <a href="/{{app()->getLocale()}}/media/xeberler/{{$blog->slug}}" class="theme-btn btn-style-four">{{ __('read-more') }}</a>
                             </div>
                         </div>
                     </div>

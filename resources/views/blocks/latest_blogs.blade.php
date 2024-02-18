@@ -23,9 +23,15 @@
                                 </a>
                             </div>
                             <div class="lower-box">
-                                <div class="post-info">18 Jan 2019</div>
+                                <div class="post-info">
+                                    @php
+                                        $carbonDate = \Carbon\Carbon::parse($blogs[0]->created_at);
+                                        $formattedDate = $carbonDate->format('d M. Y');
+                                        echo $formattedDate
+                                    @endphp
+                                </div>
                                 <h3><a href="/{{app()->getLocale()}}/media/xeberler/{{$blogs[0]->slug}}">{{$blogs[0]->title}}</a></h3>
-                                <a href="/{{app()->getLocale()}}/media/xeberler/{{$blogs[0]->slug}}" class="theme-btn read-more">Read More</a>
+                                <a href="/{{app()->getLocale()}}/media/xeberler/{{$blogs[0]->slug}}" class="theme-btn read-more">{{ __('read-more') }}</a>
                             </div>
                         </div>
                     </div>
@@ -39,9 +45,15 @@
                                 </a>
                             </div>
                             <div class="lower-box">
-                                <div class="post-info">18 Jan 2019</div>
+                                <div class="post-info">
+                                    @php
+                                        $carbonDate = \Carbon\Carbon::parse($blogs[1]->created_at);
+                                        $formattedDate = $carbonDate->format('d M. Y');
+                                        echo $formattedDate
+                                    @endphp
+                                </div>
                                 <h3><a href="/{{app()->getLocale()}}/media/xeberler/{{$blogs[1]->slug}}">{{$blogs[1]->title}}</a></h3>
-                                <a href="/{{app()->getLocale()}}/media/xeberler/{{$blogs[1]->slug}}" class="theme-btn read-more">Read More</a>
+                                <a href="/{{app()->getLocale()}}/media/xeberler/{{$blogs[1]->slug}}" class="theme-btn read-more">{{ __('read-more') }}</a>
                             </div>
                         </div>
                     </div>
@@ -57,7 +69,13 @@
                     <div class="news-block-two">
                         <div class="inner-box">
                             <h3><a href="/{{app()->getLocale()}}/media/xeberler/{{$blogs[2]->slug}}">{{$blogs[2]->title}}</a></h3>
-                            <div class="post-info">18 Jan 2019</div>
+                            <div class="post-info">
+                                @php
+                                    $carbonDate = \Carbon\Carbon::parse($blogs[2]->created_at);
+                                    $formattedDate = $carbonDate->format('d M. Y');
+                                    echo $formattedDate
+                                @endphp
+                            </div>
                         </div>
                     </div>
 
@@ -65,7 +83,13 @@
                     <div class="news-block-two">
                         <div class="inner-box">
                             <h3><a href="/{{app()->getLocale()}}/media/xeberler/{{$blogs[3]->slug}}">{{$blogs[3]->title}}</a></h3>
-                            <div class="post-info">18 Jan 2019</div>
+                            <div class="post-info">
+                                @php
+                                    $carbonDate = \Carbon\Carbon::parse($blogs[3]->created_at);
+                                    $formattedDate = $carbonDate->format('d M. Y');
+                                    echo $formattedDate
+                                @endphp
+                            </div>
                         </div>
                     </div>
 
@@ -73,11 +97,17 @@
                     <div class="news-block-two">
                         <div class="inner-box">
                             <h3><a href="/{{app()->getLocale()}}/media/xeberler/{{$blogs[4]->slug}}">{{$blogs[4]->title}}</a></h3>
-                            <div class="post-info">18 Jan 2019</div>
+                            <div class="post-info">
+                                @php
+                                    $carbonDate = \Carbon\Carbon::parse($blogs[4]->created_at);
+                                    $formattedDate = $carbonDate->format('d M. Y');
+                                    echo $formattedDate
+                                @endphp
+                            </div>
                         </div>
                     </div>
 
-                    <a href="/{{app()->getLocale()}}/media/xeberler" class="read-more">Xeberler</a>
+                    <a href="/{{app()->getLocale()}}/media/xeberler" class="read-more">{{ __('news') }}</a>
 
                 </div>
             </div>

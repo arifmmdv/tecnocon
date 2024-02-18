@@ -1,4 +1,16 @@
-<!--Main Footer-->
+@php
+    $contact = \App\Models\Page::find(9);
+    $blocks = json_decode(json_encode($contact->content));
+    foreach ($blocks as $block) {
+        if ($block->type === 'contacts') {
+            $contacts = $block->data;
+        }
+    }
+
+    $socials = \App\Models\Social::all();
+    $quickLinks = \App\Models\Menu::where('slug','quick-links')->firstOrFail();
+    $services = \App\Models\Menu::where('slug','services')->firstOrFail();
+@endphp
 <footer class="main-footer">
     <div class="auto-container">
         <!--Widgets Section-->
@@ -13,27 +25,26 @@
                         <div class="footer-column col-md-7 col-sm-6 col-xs-12">
                             <div class="footer-widget logo-widget">
                                 <div class="logo">
-                                    <a href="/{{app()->getLocale()}}"><img src="images/footer-logo.png" alt="" /></a>
+                                    <a href="/{{app()->getLocale()}}"><img src="/assets/images/footer-logo.svg" alt="Tecnocon" /></a>
                                 </div>
-                                <div class="text">Collaboratively administrate em powered markets via plug and play networks. Dynamically procrastinate B2C users after installed.</div>
+                                <div class="text">{{ __('footer-about') }}</div>
                             </div>
                         </div>
 
-                        <!--Footer Column-->
-                        <div class="footer-column col-md-5 col-sm-6 col-xs-12">
-                            <div class="footer-widget links-widget">
-                                <h2>Quick Links</h2>
-                                <div class="widget-content">
-                                    <ul class="list">
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#">About Us</a></li>
-                                        <li><a href="#">Testimonials</a></li>
-                                        <li><a href="#">Request Call Back</a></li>
-                                        <li><a href="#">Contact Us</a></li>
-                                    </ul>
+                        @if(count($quickLinks->items) > 0)
+                            <div class="footer-column col-md-5 col-sm-6 col-xs-12">
+                                <div class="footer-widget links-widget">
+                                    <h2>{{ __('quick-links') }}</h2>
+                                    <div class="widget-content">
+                                        <ul class="list">
+                                            @foreach($quickLinks->items as $item)
+                                                <li><a href="/{{app()->getLocale()}}{{$item->slug}}">{{$item->title}}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
                     </div>
                 </div>
@@ -42,39 +53,51 @@
                 <div class="big-column col-md-6 col-sm-12 col-xs-12">
                     <div class="row clearfix">
 
-                        <!--Footer Column-->
+                        @if(count($services->items) > 0)
                         <div class="footer-column col-md-6 col-sm-6 col-xs-12">
                             <div class="footer-widget links-widget">
-                                <h2>Services</h2>
+                                <h2>{{ __('services') }}</h2>
                                 <div class="widget-content">
                                     <ul class="list">
-                                        <li><a href="#">Mechanical Engineering</a></li>
-                                        <li><a href="#">Agricultural Processing</a></li>
-                                        <li><a href="#">Petrolium & Gas</a></li>
-                                        <li><a href="#">Material Engineering</a></li>
-                                        <li><a href="#">Power & Engergy</a></li>
+                                        @foreach($services->items as $item)
+                                            <li><a href="/{{app()->getLocale()}}{{$item->slug}}">{{$item->title}}</a></li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                        @endif
 
-                        <!--Footer Column-->
+                        @if(count($socials) > 0)
                         <div class="footer-column col-md-6 col-sm-6 col-xs-12">
                             <div class="footer-widget info-widget">
-                                <h2>Get In Touch</h2>
+                                <h2>{{ __('get-in-touch') }}</h2>
                                 <div class="widget-content">
-                                    <div class="number">(1800) 574 9687</div>
-                                    <div class="text">56, Suit 799, Melborne, Australia nortech@contact.gmail.com</div>
+                                    @isset($contacts->phone[0])
+                                        <div class="number">{{$contacts->phone[0]->value}}</div>
+                                    @endisset
+                                    <div class="text">
+                                        @isset($contacts->address)
+                                            {{$contacts->address}}
+                                        @endisset
+                                        <br>
+                                        @isset($contacts->email[0])
+                                            {{$contacts->email[0]->value}}
+                                        @endisset
+                                    </div>
                                     <ul class="social-icon-one">
-                                        <li><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                        <li><a href="#"><span class="fa fa-linkedin"></span></a></li>
-                                        <li><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                        <li><a href="#"><span class="fa fa-google-plus"></span></a></li>
+                                        @foreach($socials as $social)
+                                            <li>
+                                                <a href="{{$social->link}}" target="_blank" title="{{$social->title}}">
+                                                    <span class="{{$social->icon}}"></span>
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
                         </div>
-
+                        @endif
                     </div>
                 </div>
 
@@ -85,10 +108,19 @@
         <div class="footer-bottom">
             <div class="clearfix">
                 <div class="pull-left">
-                    <div class="copyright">&copy; Copyright  <a href="#">Nortech</a> 2019. All right reserved.</div>
+                    <div class="copyright">Copyright &copy; {{ date('Y') }}. {{ __('copyright') }}</div>
                 </div>
                 <div class="pull-right">
-                    <div class="created">Created by ThemeArc</div>
+                    <div class="created">
+                        Created by
+                        <a
+                            href="https://arifmammadov.com/"
+                            target="_blank"
+                            style="color: #ffd302"
+                        >
+                            MMDV
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

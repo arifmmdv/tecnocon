@@ -125,6 +125,37 @@ class PageResource extends Resource
                                             ->image()
                                             ->imageEditor(),
                                     ]),
+                                Forms\Components\Builder\Block::make('company_vision_2')
+                                    ->label('Company Vision 2')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('title')
+                                            ->label('Title'),
+                                        Forms\Components\RichEditor::make('bold_content')
+                                            ->label('Bold content'),
+                                        Forms\Components\RichEditor::make('content')
+                                            ->label('Content'),
+                                        Forms\Components\FileUpload::make('image')->label('Image')
+                                            ->directory('content-images')
+                                            ->preserveFilenames()
+                                            ->image()
+                                            ->imageEditor(),
+                                    ]),
+                                Forms\Components\Builder\Block::make('our_values')
+                                    ->label('Our Values')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('title')
+                                            ->label('Title'),
+                                        Forms\Components\RichEditor::make('content')
+                                            ->label('Content'),
+                                        Forms\Components\Repeater::make('value')
+                                            ->label('Value')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('title')
+                                                    ->label('Title'),
+                                                Forms\Components\RichEditor::make('content')
+                                                    ->label('Content'),
+                                            ]),
+                                    ]),
                                 Forms\Components\Builder\Block::make('our_approach')
                                     ->label('Our approach')
                                     ->schema([
@@ -164,6 +195,26 @@ class PageResource extends Resource
                                             ->preserveFilenames()
                                             ->image()
                                             ->imageEditor(),
+                                    ]),
+                                Forms\Components\Builder\Block::make('our_history')
+                                    ->label('Our History')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('title')
+                                            ->label('Title'),
+                                        Forms\Components\RichEditor::make('bold_content')
+                                            ->label('Bold content'),
+                                        Forms\Components\RichEditor::make('content')
+                                            ->label('Content'),
+                                        Forms\Components\FileUpload::make('image_1')->label('Image 1')
+                                            ->directory('content-images')
+                                            ->preserveFilenames()
+                                            ->image()
+                                            ->imageEditor(),
+                                        Forms\Components\FileUpload::make('image_2')->label('Image 2')
+                                            ->directory('content-images')
+                                            ->preserveFilenames()
+                                            ->image()
+                                            ->imageEditor()
                                     ]),
                                 Forms\Components\Builder\Block::make('partners')
                                     ->label('Partners')

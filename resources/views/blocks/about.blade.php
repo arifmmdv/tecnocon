@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 @endif
-                @if(!empty($block->title))
+                @if(!empty($block->image_2))
                     <div class="column col-md-6 col-sm-6 col-xs-12">
                         <div class="image">
                             <img src="/uploads/{{$block->image_2}}" alt="" />

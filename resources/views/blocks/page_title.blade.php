@@ -9,10 +9,10 @@
     <div class="auto-container">
         <div class="inner-container clearfix">
             <ul class="bread-crumb pull-left">
-                <li><a href="/">Home</a></li>
+                <li><a href="/">{{ __('home') }}</a></li>
                 <li>{{$block->title}}</li>
             </ul>
-            <div class="text pull-right">Engineering Tomorrow</div>
+            <div class="text pull-right">{{ __('engineering-tomorrow') }}</div>
         </div>
     </div>
 </div>

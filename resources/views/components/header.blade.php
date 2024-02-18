@@ -7,55 +7,8 @@
 @endphp
 <!-- Main Header-->
 <header class="main-header">
-{{--    <li><a href="#">{{ $languages[app()->getLocale()] }}</a>--}}
-{{--        <ul class="switcher-dropdown">--}}
-{{--            @foreach($languages as $locale => $language)--}}
-{{--                @if($locale !== app()->getLocale())--}}
-{{--                    @php--}}
-{{--                        $pathParts = explode("/", request()->path());--}}
-{{--                        $pathParts[0] = $locale;--}}
-{{--                        $newPath = implode("/", $pathParts);--}}
-{{--                    @endphp--}}
-{{--                    <li>--}}
-{{--                        <a href="/{{ $newPath }}">{{ $language }}</a>--}}
-{{--                    </li>--}}
-{{--                @endif--}}
-{{--            @endforeach--}}
-{{--        </ul>--}}
-{{--    </li>--}}
 
-    <!-- Header Top -->
-    <div class="header-top">
-        <div class="auto-container">
-            <div class="inner-container clearfix">
-
-                <!--Top Left-->
-                <div class="top-left">
-                    <ul class="links clearfix">
-                        <li><a href="#">+1800 456 7890</a></li>
-                        <li><a href="#"><span class="icon flaticon-note-1"></span>info@nortech.com</a></li>
-                        <li><a href="#"><span class="icon flaticon-pin"></span>56, suit 799, melborne, Australia</a></li>
-                    </ul>
-                </div>
-
-                <!--Top Right-->
-                <div class="top-right clearfix">
-                    <!--social-icon-->
-                    <div class="social-icon">
-                        <ul class="clearfix">
-                            <li><a href="#"><span class="fa fa-facebook"></span></a></li>
-                            <li><a href="#"><span class="fa fa-twitter"></span></a></li>
-                            <li><a href="#"><span class="fa fa-google-plus"></span></a></li>
-                            <li><a href="#"><span class="fa fa-linkedin"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-    <!-- Header Top End -->
+    @include('components.top-bar')
 
     <!-- Main Box -->
     <div class="main-box">
@@ -101,6 +54,37 @@
                             </ul>
                         </div>
                     </nav>
+
+                    <div class="outer-box">
+                        <!--Search Box-->
+                        <div class="search-box-outer">
+                            <div class="dropdown">
+                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-globe"></span></button>
+                                <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                    <li class="panel-outer">
+                                        <div class="form-container">
+                                            <ul class="language-options">
+                                                <li><a href="#">{{ app()->getLocale() }}</a></li>
+                                                @foreach($languages as $locale => $language)
+                                                    @if($locale !== app()->getLocale())
+                                                        @php
+                                                            $pathParts = explode("/", request()->path());
+                                                            $pathParts[0] = $locale;
+                                                            $newPath = implode("/", $pathParts);
+                                                        @endphp
+                                                        <li>
+                                                            <a href="/{{ $newPath }}">{{ $locale }}</a>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!--Nav Outer End-->
 
@@ -147,7 +131,35 @@
                             </ul>
                         </div>
                     </nav>
-                    <!-- Main Menu End-->
+                    <div class="outer-box">
+                        <!--Search Box-->
+                        <div class="search-box-outer">
+                            <div class="dropdown">
+                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-globe"></span></button>
+                                <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
+                                    <li class="panel-outer">
+                                        <div class="form-container">
+                                            <ul class="language-options">
+                                                <li><a href="#">{{ app()->getLocale() }}</a></li>
+                                                @foreach($languages as $locale => $language)
+                                                    @if($locale !== app()->getLocale())
+                                                        @php
+                                                            $pathParts = explode("/", request()->path());
+                                                            $pathParts[0] = $locale;
+                                                            $newPath = implode("/", $pathParts);
+                                                        @endphp
+                                                        <li>
+                                                            <a href="/{{ $newPath }}">{{ $locale }}</a>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
