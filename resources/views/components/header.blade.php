@@ -122,7 +122,7 @@
                                         @if(isset($menu->children) && count($menu->children) > 0)
                                             <ul>
                                                 @foreach($menu->children as $child)
-                                                    <li><a href="/{{app()->getLocale()}}">{{$child->title}}</a></li>
+                                                    <li><a href="/{{app()->getLocale()}}{{$menu->slug}}{{$child->slug}}">{{$child->title}}</a></li>
                                                 @endforeach
                                             </ul>
                                         @endif

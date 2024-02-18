@@ -5,7 +5,7 @@
                 <div class="news-block-three col-md-4 col-sm-6 col-xs-12">
                     <div class="inner-box">
                         <div class="image">
-                            <a href="/{{app()->getLocale()}}/media/xeberler/{{$blog->slug}}"><img src="/uploads/{{$blog->image}}" alt="{{$blog->title}}" /></a>
+                            <a href="/{{app()->getLocale()}}/xeberler/{{$blog->slug}}"><img src="/uploads/{{$blog->image}}" alt="{{$blog->title}}" /></a>
                         </div>
                         <div class="lower-content">
                             <div class="upper-box clearfix">
@@ -18,7 +18,7 @@
                                 </div>
                             </div>
                             <div class="lower-box">
-                                <h3><a href="/{{app()->getLocale()}}/media/xeberler/{{$blog->slug}}">{{$blog->title}}</a></h3>
+                                <h3><a href="/{{app()->getLocale()}}/xeberler/{{$blog->slug}}">{{$blog->title}}</a></h3>
                                 <div class="text">
                                     @php
                                         $blocks = json_decode(json_encode($blog->content));
@@ -37,7 +37,7 @@
                                         @endphp
                                     @endisset
                                 </div>
-                                <a href="/{{app()->getLocale()}}/media/xeberler/{{$blog->slug}}" class="theme-btn btn-style-four">{{ __('read-more') }}</a>
+                                <a href="/{{app()->getLocale()}}/xeberler/{{$blog->slug}}" class="theme-btn btn-style-four">{{ __('read-more') }}</a>
                             </div>
                         </div>
                     </div>

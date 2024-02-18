@@ -74,7 +74,9 @@
                                 <h2>{{ __('get-in-touch') }}</h2>
                                 <div class="widget-content">
                                     @isset($contacts->phone[0])
-                                        <div class="number">{{$contacts->phone[0]->value}}</div>
+                                        <div class="number">
+                                            <a href="tel:{{$contacts->phone[0]->value}}">{{$contacts->phone[0]->value}}</a>
+                                        </div>
                                     @endisset
                                     <div class="text">
                                         @isset($contacts->address)
@@ -82,7 +84,7 @@
                                         @endisset
                                         <br>
                                         @isset($contacts->email[0])
-                                            {{$contacts->email[0]->value}}
+                                            <a href="mailto:{{$contacts->email[0]->value}}">{{$contacts->email[0]->value}}</a>
                                         @endisset
                                     </div>
                                     <ul class="social-icon-one">

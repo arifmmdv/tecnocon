@@ -31,7 +31,7 @@ class ProductResource extends Resource
 
     protected static int $globalSearchResultsLimit = 20;
 
-    protected static bool $shouldRegisterNavigation = true;
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function getNavigationBadge(): ?string
     {
