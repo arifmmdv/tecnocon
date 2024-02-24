@@ -1,21 +1,21 @@
-<section class="fluid-section-one @if($block->dark) alternate @endif">
+<section class="fluid-section-one @if($block['dark']) alternate @endif">
     <div class="outer-container clearfix">
-        @if(!empty($block->image))
-        <div class="image-column" style="background-image:url(/uploads/{{$block->image}});">
-            <figure class="image-box"><img src="/uploads/{{$block->image}}" alt="Tecnocon"></figure>
+        @if(!empty($block['image']))
+        <div class="image-column" style="background-image:url(/uploads/{{$block['image']}});">
+            <figure class="image-box"><img src="/uploads/{{$block['image']}}" alt="Tecnocon"></figure>
         </div>
         @endif
         <div class="content-column">
             <div class="inner-column">
-                @if(!empty($block->title))
-                    <div class="sec-title @if($block->dark) light @endif">
-                        <h2>{{$block->title}}</h2>
+                @if(!empty($block['title']))
+                    <div class="sec-title @if($block['dark']) light @endif">
+                        <h2>{{ $translator->translate($block,'title') }}</h2>
                     </div>
                 @endif
 
-                @if(!empty($block->content))
+                @if(!empty($block['content']))
                     <div class="text">
-                        {!! $block->content !!}
+                        {!! $translator->translate($block,'content') !!}
                     </div>
                 @endif
 {{--                <ul class="icons-list">--}}

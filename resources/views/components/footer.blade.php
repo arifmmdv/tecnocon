@@ -3,7 +3,8 @@
     $blocks = json_decode(json_encode($contact->content));
     foreach ($blocks as $block) {
         if ($block->type === 'contacts') {
-            $contacts = $block->data;
+            $contacts = json_decode(json_encode($block->data), true); // Convert to associative array
+            break; // Assuming you want to stop the loop after finding the 'contacts' block
         }
     }
 
@@ -25,7 +26,9 @@
                         <div class="footer-column col-md-7 col-sm-6 col-xs-12">
                             <div class="footer-widget logo-widget">
                                 <div class="logo">
-                                    <a href="/{{app()->getLocale()}}"><img src="/assets/images/footer-logo.svg" alt="Tecnocon" /></a>
+                                    <a href="/{{app()->getLocale()}}">
+                                        <img src="/assets/images/footer-logo.svg" alt="Tecnocon" />
+                                    </a>
                                 </div>
                                 <div class="text">{{ __('footer-about') }}</div>
                             </div>
@@ -38,7 +41,11 @@
                                     <div class="widget-content">
                                         <ul class="list">
                                             @foreach($quickLinks->items as $item)
-                                                <li><a href="/{{app()->getLocale()}}{{$item->slug}}">{{$item->title}}</a></li>
+                                                <li>
+                                                    <a href="/{{app()->getLocale()}}{{$item->slug}}">
+                                                        {{ $translator->translate($item,'title') }}
+                                                    </a>
+                                                </li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -60,7 +67,11 @@
                                 <div class="widget-content">
                                     <ul class="list">
                                         @foreach($services->items as $item)
-                                            <li><a href="/{{app()->getLocale()}}{{$item->slug}}">{{$item->title}}</a></li>
+                                            <li>
+                                                <a href="/{{app()->getLocale()}}{{$item->slug}}">
+                                                    {{ $translator->translate($item,'title') }}
+                                                </a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -73,18 +84,22 @@
                             <div class="footer-widget info-widget">
                                 <h2>{{ __('get-in-touch') }}</h2>
                                 <div class="widget-content">
-                                    @isset($contacts->phone[0])
+                                    @isset($contacts['phone'][0])
                                         <div class="number">
-                                            <a href="tel:{{$contacts->phone[0]->value}}">{{$contacts->phone[0]->value}}</a>
+                                            <a href="tel:{{$contacts['phone'][0]['value']}}">
+                                                {{$contacts['phone'][0]['value']}}
+                                            </a>
                                         </div>
                                     @endisset
                                     <div class="text">
-                                        @isset($contacts->address)
-                                            {{$contacts->address}}
+                                        @isset($contacts['address'])
+                                            {{ $translator->translate($contacts,'address') }}
                                         @endisset
                                         <br>
-                                        @isset($contacts->email[0])
-                                            <a href="mailto:{{$contacts->email[0]->value}}">{{$contacts->email[0]->value}}</a>
+                                        @isset($contacts['email'][0])
+                                            <a href="mailto:{{$contacts['email'][0]['value']}}">
+                                                {{$contacts['email'][0]['value']}}
+                                            </a>
                                         @endisset
                                     </div>
                                     <ul class="social-icon-one">

@@ -7,7 +7,6 @@ use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,7 +16,6 @@ use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
-    use Translatable;
 
     protected static ?string $model = Category::class;
 

@@ -5,7 +5,7 @@
         "ru" => __('russian'),
     ]
 @endphp
-<!-- Main Header-->
+    <!-- Main Header-->
 <header class="main-header">
 
     @include('components.top-bar')
@@ -30,7 +30,8 @@
                     <nav class="main-menu">
                         <div class="navbar-header">
                             <!-- Toggle Button -->
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target=".navbar-collapse">
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -41,13 +42,19 @@
                             <ul class="navigation clearfix">
                                 @foreach(\App\Models\Menu::find(1)->items as $menu)
                                     <li @if(isset($menu->children) && count($menu->children) > 0) class="dropdown" @endif>
-                                        <a href="/{{app()->getLocale()}}{{$menu->slug}}">{{$menu->title}}</a>
+                                        <a href="/{{app()->getLocale()}}{{$menu->slug}}">
+                                            {{ $translator->translate($menu,'title') }}
+                                        </a>
                                         @if(isset($menu->children) && count($menu->children) > 0)
-                                        <ul>
-                                            @foreach($menu->children as $child)
-                                                <li><a href="/{{app()->getLocale()}}{{$menu->slug}}{{$child->slug}}">{{$child->title}}</a></li>
-                                            @endforeach
-                                        </ul>
+                                            <ul>
+                                                @foreach($menu->children as $child)
+                                                    <li>
+                                                        <a href="/{{app()->getLocale()}}{{$menu->slug}}{{$child->slug}}">
+                                                            {{ $translator->translate($child,'title') }}
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
                                         @endif
                                     </li>
                                 @endforeach
@@ -59,7 +66,9 @@
                         <!--Search Box-->
                         <div class="search-box-outer">
                             <div class="dropdown">
-                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-globe"></span></button>
+                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
+                                        class="fa fa-globe"></span></button>
                                 <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
                                     <li class="panel-outer">
                                         <div class="form-container">
@@ -98,7 +107,9 @@
             <div class="sticky-inner-container clearfix">
                 <!--Logo-->
                 <div class="logo pull-left">
-                    <a href="/{{app()->getLocale()}}" class="img-responsive"><img src="/assets/images/logo.svg" alt="" title=""></a>
+                    <a href="/{{app()->getLocale()}}" class="img-responsive">
+                        <img src="/assets/images/logo.svg" alt="" title="" />
+                    </a>
                 </div>
 
                 <!--Right Col-->
@@ -107,7 +118,8 @@
                     <nav class="main-menu">
                         <div class="navbar-header">
                             <!-- Toggle Button -->
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                    data-target=".navbar-collapse">
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -118,11 +130,17 @@
                             <ul class="navigation clearfix">
                                 @foreach(\App\Models\Menu::find(1)->items as $menu)
                                     <li @if(isset($menu->children) && count($menu->children) > 0) class="dropdown" @endif>
-                                        <a href="/{{app()->getLocale()}}{{$menu->slug}}">{{$menu->title}}</a>
+                                        <a href="/{{app()->getLocale()}}{{$menu->slug}}">
+                                            {{ $translator->translate($menu,'title') }}
+                                        </a>
                                         @if(isset($menu->children) && count($menu->children) > 0)
                                             <ul>
                                                 @foreach($menu->children as $child)
-                                                    <li><a href="/{{app()->getLocale()}}{{$menu->slug}}{{$child->slug}}">{{$child->title}}</a></li>
+                                                    <li>
+                                                        <a href="/{{app()->getLocale()}}{{$menu->slug}}{{$child->slug}}">
+                                                            {{ $translator->translate($child,'title') }}
+                                                        </a>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         @endif
@@ -135,7 +153,9 @@
                         <!--Search Box-->
                         <div class="search-box-outer">
                             <div class="dropdown">
-                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-globe"></span></button>
+                                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu3"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span
+                                        class="fa fa-globe"></span></button>
                                 <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu3">
                                     <li class="panel-outer">
                                         <div class="form-container">

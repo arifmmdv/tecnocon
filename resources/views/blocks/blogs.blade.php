@@ -1,7 +1,7 @@
 <div class="blog-page-section">
     <div class="auto-container">
         <div class="row clearfix">
-            @foreach(\App\Models\Page::where('parent_id',7)->orderBy('created_at','desc')->get() as $blog)
+            @foreach(\App\Models\Page::where('parent_id',7)->orderBy('created_at','desc')->paginate($block['limit']) as $blog)
                 <div class="news-block-three col-md-4 col-sm-6 col-xs-12">
                     <div class="inner-box">
                         <div class="image">
@@ -45,13 +45,13 @@
             @endforeach
         </div>
 
-        @if($block->pagination)
-        <ul class="styled-pagination text-center">
-            <li><a href="#" class="active">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#"><span class="fa fa-angle-right"></span></a></li>
-        </ul>
-        @endif
+{{--        @if($block['pagination'])--}}
+{{--            <ul class="styled-pagination text-center">--}}
+{{--                <li><a href="#" class="active">1</a></li>--}}
+{{--                <li><a href="#">2</a></li>--}}
+{{--                <li><a href="#"><span class="fa fa-angle-right"></span></a></li>--}}
+{{--            </ul>--}}
+{{--        @endif--}}
 
     </div>
 </div>

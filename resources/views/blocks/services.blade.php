@@ -2,8 +2,12 @@
     <div class="auto-container">
         <!--Sec Title-->
         <div class="sec-title">
-            <h2>{{$block->title}}</h2>
-            <div class="text">{{$block->sub_title}}</div>
+            @if(!empty($block['title']))
+                <h2>{{ $translator->translate($block,'title') }}</h2>
+            @endif
+            @if(!empty($block['sub_title']))
+                <div class="text">{{ $translator->translate($block,'sub_title') }}</div>
+            @endif
         </div>
 
         <div class="row clearfix">
@@ -16,7 +20,11 @@
                         </a>
                     </div>
                     <div class="lower-content">
-                        <h3><a href="/{{app()->getLocale()}}/xidmetlerimiz/{{$service->slug}}">{{$service->title}}</a></h3>
+                        <h3>
+                            <a href="/{{app()->getLocale()}}/xidmetlerimiz/{{$service->slug}}">
+                                {{$service->title}}
+                            </a>
+                        </h3>
                     </div>
                 </div>
             </div>

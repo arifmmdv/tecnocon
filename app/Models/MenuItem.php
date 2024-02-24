@@ -6,16 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\Translatable\HasTranslations;
 
 class MenuItem extends Model
 {
     use HasFactory;
-    use HasTranslations;
 
-    protected $fillable = ['title','slug','menu_id','parent_id'];
-
-    public $translatable = ['title'];
+    protected $fillable = ['title','title_en','title_ru','slug','menu_id','parent_id'];
 
     public function template(): BelongsTo
     {

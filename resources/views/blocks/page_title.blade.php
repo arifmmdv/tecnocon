@@ -1,6 +1,6 @@
 <section class="page-title" style="background-image:url(/assets/images/background/4.jpg);">
     <div class="auto-container">
-        <h1>{{$block->title}}</h1>
+        <h1>{{ $translator->translate($block,'title') }}</h1>
     </div>
 
 </section>
@@ -10,7 +10,9 @@
         <div class="inner-container clearfix">
             <ul class="bread-crumb pull-left">
                 <li><a href="/">{{ __('home') }}</a></li>
-                <li>{{$block->title}}</li>
+                <li>
+                    {{ $translator->translate($block,'title') }}
+                </li>
             </ul>
             <div class="text pull-right">{{ __('engineering-tomorrow') }}</div>
         </div>

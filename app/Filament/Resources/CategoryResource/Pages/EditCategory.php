@@ -8,7 +8,6 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditCategory extends EditRecord
 {
-    use EditRecord\Concerns\Translatable;
 
     protected static string $resource = CategoryResource::class;
 
@@ -16,7 +15,6 @@ class EditCategory extends EditRecord
     {
         return [
             Actions\DeleteAction::make(),
-            Actions\LocaleSwitcher::make(),
         ];
     }
 }

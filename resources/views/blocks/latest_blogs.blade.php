@@ -4,8 +4,8 @@
             $blogs = \App\Models\Page::where('parent_id',7)->orderBy('created_at','desc')->paginate(5);
         @endphp
         <div class="sec-title">
-            <h2>{{$block->title}}</h2>
-            <div class="title">{{$block->sub_title}}</div>
+            <h2>{{ $translator->translate($block,'title') }}</h2>
+            <div class="title">{{ $translator->translate($block,'sub_title') }}</div>
         </div>
 
         <div class="row clearfix">

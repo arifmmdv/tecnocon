@@ -3,7 +3,8 @@
     $blocks = json_decode(json_encode($contact->content));
     foreach ($blocks as $block) {
         if ($block->type === 'contacts') {
-            $contacts = $block->data;
+            $contacts = json_decode(json_encode($block->data), true); // Convert to associative array
+            break; // Assuming you want to stop the loop after finding the 'contacts' block
         }
     }
 
@@ -16,14 +17,14 @@
             <!--Top Left-->
             <div class="top-left">
                 <ul class="links clearfix">
-                    @isset($contacts->phone[0])
-                        <li><a href="#">{{$contacts->phone[0]->value}}</a></li>
+                    @isset($contacts['phone'][0])
+                        <li><a href="#">{{ $contacts['phone'][0]['value']}}</a></li>
                     @endisset
-                    @isset($contacts->email[0])
-                        <li><a href="#"><span class="icon flaticon-note-1"></span>{{$contacts->email[0]->value}}</a></li>
+                    @isset($contacts['email'][0])
+                        <li><a href="#"><span class="icon flaticon-note-1"></span>{{$contacts['email'][0]['value']}}</a></li>
                     @endisset
-                    @isset($contacts->address)
-                        <li><a href="#"><span class="icon flaticon-pin"></span>{{$contacts->address}}</a></li>
+                    @isset($contacts['address'])
+                        <li><a href="#"><span class="icon flaticon-pin"></span>{{ $translator->translate($contacts,'address') }}</a></li>
                     @endisset
                 </ul>
             </div>

@@ -14,11 +14,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Filament\Resources\Concerns\Translatable;
 
 class ProductResource extends Resource
 {
-    use Translatable;
 
     protected static ?string $model = Product::class;
 

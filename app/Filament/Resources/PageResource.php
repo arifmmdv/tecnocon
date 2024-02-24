@@ -7,7 +7,6 @@ use App\Filament\Resources\PageResource\RelationManagers;
 use App\Models\Page;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -15,10 +14,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 use Livewire\Component as Livewire;
+use Filament\Forms\Components\Tabs;
 
 class PageResource extends Resource
 {
-    use Translatable;
 
     protected static ?string $model = Page::class;
 
@@ -33,24 +32,38 @@ class PageResource extends Resource
                     ->schema([
                         Forms\Components\Section::make()
                             ->schema([
-                                Forms\Components\TextInput::make('title')
-                                    ->required()
-                                    ->live(onBlur: true)
-                                    ->unique(ignoreRecord: true)
-                                    ->afterStateUpdated(function(string $operation, $state, Forms\Set $set) {
-                                        if ($operation !== 'create') {
-                                            return;
-                                        }
+                                Tabs::make('title_tabs')->label('Title')
+                                    ->tabs([
+                                        Tabs\Tab::make('Az')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('title')
+                                                    ->required()
+                                                    ->live(onBlur: true)
+                                                    ->unique(ignoreRecord: true)
+                                                    ->afterStateUpdated(function(string $operation, $state, Forms\Set $set) {
+                                                        if ($operation !== 'create') {
+                                                            return;
+                                                        }
 
-                                        $set('slug', Str::slug($state));
-                                    }),
+                                                        $set('slug', Str::slug($state));
+                                                    }),
+                                            ]),
+                                        Tabs\Tab::make('En')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('title_en')->label('Title'),
+                                            ]),
+                                        Tabs\Tab::make('Ru')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('title_ru')->label('Title'),
+                                            ]),
+                                    ])->columnSpanFull(),
                                 Forms\Components\TextInput::make('slug')
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
                                     ->unique(Page::class, 'slug', ignoreRecord: true),
                                 Forms\Components\Select::make('parent_id')
-                                    ->relationship('parent', 'title')->columnSpan('full'),
+                                    ->relationship('parent', 'title'),
                             ])->columns(2),
 
                         Forms\Components\Builder::make('content')
@@ -61,27 +74,71 @@ class PageResource extends Resource
                                         Forms\Components\Repeater::make('slide')
                                             ->label('Slide')
                                             ->schema([
-                                                Forms\Components\TextInput::make('title'),
-                                                Forms\Components\TextInput::make('sub_title')->label('Sub title'),
+                                                Tabs::make('SlideTabs')
+                                                    ->tabs([
+                                                        Tabs\Tab::make('Az')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title'),
+                                                                Forms\Components\TextInput::make('sub_title')->label('Sub title'),
+                                                                Forms\Components\TextInput::make('button_text')->label('Button Text'),
+                                                                Forms\Components\TextInput::make('button_text_2')->label('Button 2 Text'),
+                                                            ]),
+                                                        Tabs\Tab::make('En')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title_en'),
+                                                                Forms\Components\TextInput::make('sub_title_en')->label('Sub title'),
+                                                                Forms\Components\TextInput::make('button_text_en')->label('Button Text'),
+                                                                Forms\Components\TextInput::make('button_text_2_en')->label('Button 2 Text'),
+                                                            ]),
+                                                        Tabs\Tab::make('Ru')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title_ru'),
+                                                                Forms\Components\TextInput::make('sub_title_ru')->label('Sub title'),
+                                                                Forms\Components\TextInput::make('button_text_ru')->label('Button Text'),
+                                                                Forms\Components\TextInput::make('button_text_2_ru')->label('Button 2 Text'),
+                                                            ]),
+                                                    ]),
+                                                Forms\Components\TextInput::make('button_link')->label('Button Link'),
+                                                Forms\Components\TextInput::make('button_link_2')->label('Button 2 Link'),
                                                 Forms\Components\FileUpload::make('image')
                                                     ->directory('slides')
                                                     ->image()
                                                     ->imageEditor(),
-                                                Forms\Components\TextInput::make('button_text')->label('Button Text'),
-                                                Forms\Components\TextInput::make('button_link')->label('Button Link'),
-                                                Forms\Components\TextInput::make('button_text_2')->label('Button 2 Text'),
-                                                Forms\Components\TextInput::make('button_link_2')->label('Button 2 Link'),
                                             ]),
                                     ]),
                                 Forms\Components\Builder\Block::make('about')
                                     ->label('About')
                                     ->schema([
-                                        Forms\Components\TextInput::make('title')
-                                            ->label('Title'),
-                                        Forms\Components\RichEditor::make('content')
-                                            ->label('Content'),
-                                        Forms\Components\RichEditor::make('bold_content')
-                                            ->label('Bold content'),
+                                        Tabs::make('AboutTabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('content')
+                                                            ->label('Content'),
+                                                        Forms\Components\RichEditor::make('bold_content')
+                                                            ->label('Bold content'),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_en')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('content_en')
+                                                            ->label('Content'),
+                                                        Forms\Components\RichEditor::make('bold_content_en')
+                                                            ->label('Bold content'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_ru')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('content_ru')
+                                                            ->label('Content'),
+                                                        Forms\Components\RichEditor::make('bold_content_ru')
+                                                            ->label('Bold content'),
+                                                    ]),
+                                            ]),
                                         Forms\Components\FileUpload::make('image_1')->label('Image 1')
                                             ->directory('content-images')
                                             ->preserveFilenames()
@@ -96,13 +153,41 @@ class PageResource extends Resource
                                 Forms\Components\Builder\Block::make('about_2')
                                     ->label('About 2')
                                     ->schema([
-                                        Forms\Components\TextInput::make('title')
-                                            ->label('Title'),
-                                        Forms\Components\RichEditor::make('bold_content')
-                                            ->label('Bold content'),
-                                        Forms\Components\RichEditor::make('content')
-                                            ->label('Content'),
-                                        Forms\Components\TextInput::make('button_text')->label('Button Text'),
+                                        Tabs::make('About2Tabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content')
+                                                            ->label('Content'),
+                                                        Forms\Components\TextInput::make('button_text')->label('Button Text'),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_en')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content_en')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content_en')
+                                                            ->label('Content'),
+                                                        Forms\Components\TextInput::make('button_text_en')
+                                                            ->label('Button Text'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_ru')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content_ru')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content_ru')
+                                                            ->label('Content'),
+                                                        Forms\Components\TextInput::make('button_text_ru')
+                                                            ->label('Button Text'),
+                                                    ]),
+                                            ]),
                                         Forms\Components\TextInput::make('button_link')->label('Button Link'),
                                         Forms\Components\FileUpload::make('image')->label('Image')
                                             ->directory('content-images')
@@ -113,12 +198,36 @@ class PageResource extends Resource
                                 Forms\Components\Builder\Block::make('company_vision')
                                     ->label('Company Vision')
                                     ->schema([
-                                        Forms\Components\TextInput::make('title')
-                                            ->label('Title'),
-                                        Forms\Components\RichEditor::make('bold_content')
-                                            ->label('Bold content'),
-                                        Forms\Components\RichEditor::make('content')
-                                            ->label('Content'),
+                                        Tabs::make('CompanyVisionTabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content')
+                                                            ->label('Content'),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_en')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content_en')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content_en')
+                                                            ->label('Content'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_ru')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content_ru')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content_ru')
+                                                            ->label('Content'),
+                                                    ]),
+                                            ]),
                                         Forms\Components\FileUpload::make('image')->label('Image')
                                             ->directory('content-images')
                                             ->preserveFilenames()
@@ -128,12 +237,36 @@ class PageResource extends Resource
                                 Forms\Components\Builder\Block::make('company_vision_2')
                                     ->label('Company Vision 2')
                                     ->schema([
-                                        Forms\Components\TextInput::make('title')
-                                            ->label('Title'),
-                                        Forms\Components\RichEditor::make('bold_content')
-                                            ->label('Bold content'),
-                                        Forms\Components\RichEditor::make('content')
-                                            ->label('Content'),
+                                        Tabs::make('CompanyVision2Tabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content')
+                                                            ->label('Content'),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_en')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content_en')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content_en')
+                                                            ->label('Content'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_ru')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content_ru')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content_ru')
+                                                            ->label('Content'),
+                                                    ]),
+                                            ]),
                                         Forms\Components\FileUpload::make('image')->label('Image')
                                             ->directory('content-images')
                                             ->preserveFilenames()
@@ -143,17 +276,57 @@ class PageResource extends Resource
                                 Forms\Components\Builder\Block::make('our_values')
                                     ->label('Our Values')
                                     ->schema([
-                                        Forms\Components\TextInput::make('title')
-                                            ->label('Title'),
-                                        Forms\Components\RichEditor::make('content')
-                                            ->label('Content'),
+                                        Tabs::make('OurValuesTabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('content')
+                                                            ->label('Content'),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_en')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('content_en')
+                                                            ->label('Content'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_ru')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('content_ru')
+                                                            ->label('Content'),
+                                                    ]),
+                                            ]),
                                         Forms\Components\Repeater::make('value')
                                             ->label('Value')
                                             ->schema([
-                                                Forms\Components\TextInput::make('title')
-                                                    ->label('Title'),
-                                                Forms\Components\RichEditor::make('content')
-                                                    ->label('Content'),
+                                                Tabs::make('ValueTabs')
+                                                    ->tabs([
+                                                        Tabs\Tab::make('Az')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title')
+                                                                    ->label('Title'),
+                                                                Forms\Components\RichEditor::make('content')
+                                                                    ->label('Content'),
+                                                            ]),
+                                                        Tabs\Tab::make('En')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title_en')
+                                                                    ->label('Title'),
+                                                                Forms\Components\RichEditor::make('content_en')
+                                                                    ->label('Content'),
+                                                            ]),
+                                                        Tabs\Tab::make('Ru')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title_en')
+                                                                    ->label('Title'),
+                                                                Forms\Components\RichEditor::make('content_en')
+                                                                    ->label('Content'),
+                                                            ]),
+                                                    ]),
                                             ]),
                                     ]),
                                 Forms\Components\Builder\Block::make('our_approach')
@@ -169,10 +342,30 @@ class PageResource extends Resource
                                 Forms\Components\Builder\Block::make('our_approach_2')
                                     ->label('Our approach 2')
                                     ->schema([
-                                        Forms\Components\TextInput::make('title')
-                                            ->label('Title'),
-                                        Forms\Components\RichEditor::make('content')
-                                            ->label('Content'),
+                                        Tabs::make('OurApproach2Tabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('content')
+                                                            ->label('Content'),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_en')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('content_en')
+                                                            ->label('Content'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_ru')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('content_ru')
+                                                            ->label('Content'),
+                                                    ]),
+                                            ]),
                                         Forms\Components\FileUpload::make('image')->label('Image')
                                             ->directory('content-images')
                                             ->preserveFilenames()
@@ -199,12 +392,36 @@ class PageResource extends Resource
                                 Forms\Components\Builder\Block::make('our_history')
                                     ->label('Our History')
                                     ->schema([
-                                        Forms\Components\TextInput::make('title')
-                                            ->label('Title'),
-                                        Forms\Components\RichEditor::make('bold_content')
-                                            ->label('Bold content'),
-                                        Forms\Components\RichEditor::make('content')
-                                            ->label('Content'),
+                                        Tabs::make('HistoryTabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content')
+                                                            ->label('Content'),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_en')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content_en')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content_en')
+                                                            ->label('Content'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_ru')
+                                                            ->label('Title'),
+                                                        Forms\Components\RichEditor::make('bold_content_ru')
+                                                            ->label('Bold content'),
+                                                        Forms\Components\RichEditor::make('content_ru')
+                                                            ->label('Content'),
+                                                    ]),
+                                            ]),
                                         Forms\Components\FileUpload::make('image_1')->label('Image 1')
                                             ->directory('content-images')
                                             ->preserveFilenames()
@@ -234,9 +451,25 @@ class PageResource extends Resource
                                 Forms\Components\Builder\Block::make('page_title')
                                     ->label('Page Title')
                                     ->schema([
-                                        Forms\Components\TextInput::make('title')
-                                            ->label('Title')
-                                            ->required(),
+                                        Tabs::make('PageTitleTabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title')
+                                                            ->label('Title')
+                                                            ->required(),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_en')
+                                                            ->label('Title'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_ru')
+                                                            ->label('Title'),
+                                                    ]),
+                                            ])
                                     ]),
                                 Forms\Components\Builder\Block::make('blogs')
                                     ->label('Blog')
@@ -251,18 +484,58 @@ class PageResource extends Resource
                                 Forms\Components\Builder\Block::make('latest_blogs')
                                     ->label('Latest Blogs')
                                     ->schema([
-                                        Forms\Components\TextInput::make('title')
-                                            ->label('Title'),
-                                        Forms\Components\TextInput::make('sub_title')
-                                            ->label('Sub title'),
+                                        Tabs::make('Tabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title')
+                                                            ->label('Title'),
+                                                        Forms\Components\TextInput::make('sub_title')
+                                                            ->label('Sub title'),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_en')
+                                                            ->label('Title'),
+                                                        Forms\Components\TextInput::make('sub_title_en')
+                                                            ->label('Sub title'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_ru')
+                                                            ->label('Title'),
+                                                        Forms\Components\TextInput::make('sub_title_ru')
+                                                            ->label('Sub title'),
+                                                    ]),
+                                            ]),
                                     ]),
                                 Forms\Components\Builder\Block::make('services')
                                     ->label('Services')
                                     ->schema([
-                                        Forms\Components\TextInput::make('title')
-                                            ->label('Title'),
-                                        Forms\Components\TextInput::make('sub_title')
-                                            ->label('Sub title'),
+                                        Tabs::make('ServicesTabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title')
+                                                            ->label('Title'),
+                                                        Forms\Components\TextInput::make('sub_title')
+                                                            ->label('Sub title'),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_en')
+                                                            ->label('Title'),
+                                                        Forms\Components\TextInput::make('sub_title_en')
+                                                            ->label('Sub title'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('title_ru')
+                                                            ->label('Title'),
+                                                        Forms\Components\TextInput::make('sub_title_ru')
+                                                            ->label('Sub title'),
+                                                    ]),
+                                            ]),
                                     ]),
                                 Forms\Components\Builder\Block::make('map')
                                     ->label('Map')
@@ -315,20 +588,68 @@ class PageResource extends Resource
                                 Forms\Components\Builder\Block::make('contacts')
                                     ->label('Contacts')
                                     ->schema([
-                                        Forms\Components\TextInput::make('address_title')->label('Address title'),
-                                        Forms\Components\TextInput::make('address')->label('Address'),
-                                        Forms\Components\TextInput::make('phone_title')->label('Phone Title'),
+                                        Tabs::make('ContactsTabs')
+                                            ->tabs([
+                                                Tabs\Tab::make('Az')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('address_title')->label('Address title'),
+                                                        Forms\Components\TextInput::make('address')->label('Address'),
+                                                        Forms\Components\TextInput::make('phone_title')->label('Phone Title'),
+                                                        Forms\Components\TextInput::make('email_title')->label('Email Title'),
+                                                    ]),
+                                                Tabs\Tab::make('En')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('address_title_en')->label('Address title'),
+                                                        Forms\Components\TextInput::make('address_en')->label('Address'),
+                                                        Forms\Components\TextInput::make('phone_title_en')->label('Phone Title'),
+                                                        Forms\Components\TextInput::make('email_title_en')->label('Email Title'),
+                                                    ]),
+                                                Tabs\Tab::make('Ru')
+                                                    ->schema([
+                                                        Forms\Components\TextInput::make('address_title_ru')->label('Address title'),
+                                                        Forms\Components\TextInput::make('address_ru')->label('Address'),
+                                                        Forms\Components\TextInput::make('phone_title_ru')->label('Phone Title'),
+                                                        Forms\Components\TextInput::make('email_title_ru')->label('Email Title'),
+                                                    ]),
+                                            ]),
                                         Forms\Components\Repeater::make('phone')
                                             ->label('Phone')
                                             ->schema([
-                                                Forms\Components\TextInput::make('title'),
+                                                Tabs::make('PhoneTabs')
+                                                    ->tabs([
+                                                        Tabs\Tab::make('Az')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title'),
+                                                            ]),
+                                                        Tabs\Tab::make('En')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title_en'),
+                                                            ]),
+                                                        Tabs\Tab::make('Ru')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title_ru'),
+                                                            ]),
+                                                    ]),
                                                 Forms\Components\TextInput::make('value'),
                                             ]),
-                                        Forms\Components\TextInput::make('email_title')->label('Email Title'),
                                         Forms\Components\Repeater::make('email')
                                             ->label('Email')
                                             ->schema([
-                                                Forms\Components\TextInput::make('title'),
+                                                Tabs::make('EmailTabs')
+                                                    ->tabs([
+                                                        Tabs\Tab::make('Az')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title'),
+                                                            ]),
+                                                        Tabs\Tab::make('En')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title_en'),
+                                                            ]),
+                                                        Tabs\Tab::make('Ru')
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('title_ru'),
+                                                            ]),
+                                                    ]),
                                                 Forms\Components\TextInput::make('value'),
                                             ])
                                     ]),
@@ -350,8 +671,24 @@ class PageResource extends Resource
                             ]),
                         Forms\Components\Section::make('Seo')
                             ->schema([
-                                Forms\Components\TextInput::make('seo_title'),
-                                Forms\Components\Textarea::make('seo_description'),
+                                Tabs::make('SeoTabs')
+                                    ->tabs([
+                                        Tabs\Tab::make('Az')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('seo_title')->label('Seo Title'),
+                                                Forms\Components\Textarea::make('seo_description')->label('Seo Description'),
+                                            ]),
+                                        Tabs\Tab::make('En')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('seo_title_en')->label('Seo Title'),
+                                                Forms\Components\Textarea::make('seo_description_en')->label('Seo Description'),
+                                            ]),
+                                        Tabs\Tab::make('Ru')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('seo_title_ru')->label('Seo Title'),
+                                                Forms\Components\Textarea::make('seo_description_ru')->label('Seo Description'),
+                                            ]),
+                                    ]),
                             ]),
                         Forms\Components\Section::make('Image')
                             ->schema([

@@ -6,18 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\Translatable\HasTranslations;
 
 class Page extends Model
 {
     use HasFactory;
-    use HasTranslations;
 
     protected $fillable = [
-        'title','slug','parent_id','is_visible','image','template_id','content','seo_title','seo_description'
+        'title','title_en','title_ru',
+        'seo_title','seo_title_en','seo_title_ru',
+        'seo_description','seo_description_en','seo_description_ru',
+        'slug','parent_id','is_visible','image','template_id','content',
     ];
-
-    public $translatable = ['title','content','seo_title','seo_description'];
 
     protected $casts = [
         'content' => 'array'

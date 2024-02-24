@@ -7,18 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\Translatable\HasTranslations;
 
 class Category extends Model
 {
     use HasFactory;
-    use HasTranslations;
 
     protected $fillable = [
         'name','slug','parent_id','is_visible','description'
     ];
-
-    public $translatable = ['name','description'];
 
     public function parent(): BelongsTo
     {
