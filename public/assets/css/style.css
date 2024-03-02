@@ -1440,7 +1440,7 @@ img{
 	top:0px;
 	width:100%;
 	padding:0px 0px;
-	background:#242424;
+	background:#333;
 	z-index:0;
 	transition:all 500ms ease;
 	-moz-transition:all 500ms ease;
@@ -2740,7 +2740,7 @@ img{
 
 .main-footer{
 	position:relative;
-	background-color:#191919;
+	background-color:#333;
 }
 
 .main-footer .widgets-section{
